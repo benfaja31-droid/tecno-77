@@ -3,59 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TECNO 77</title>
+    <title>TECNO 77 - Joke Generator</title>
     <style>
         body {
-            background-color: #000;
-            color: #fff;
-            font-family: Arial, sans-serif;
-            margin: 0;
-        }
-        .hero {
-            background: url('scanlines.svg') repeat;
-            padding: 50px;
-            text-align: center;
-        }
-        .product-card {
-            background-color: rgba(255, 255, 255, 0.1);
-            border: 1px solid #00ffcc;
-            margin: 20px;
-            padding: 20px;
-            border-radius: 10px;
-        }
-        footer {
-            background-color: #111;
-            padding: 20px;
-            text-align: center;
+            background-color: #1a1a1a;
             color: #00ffcc;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        button {
+            background-color: #00ffcc;
+            color: #1a1a1a;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #00cc99;
         }
     </style>
 </head>
 <body>
-    <div class="hero">
-        <h1>Welcome to TECNO 77</h1>
-        <p>Discover the latest advancements in technology.</p>
-    </div>
-    
-    <div class="product-cards">
-        <div class="product-card">
-            <h2>Product 1</h2>
-            <p>Description of Product 1.</p>
-        </div>
-        <div class="product-card">
-            <h2>Product 2</h2>
-            <p>Description of Product 2.</p>
-        </div>
-    </div>
-
-    <div class="reviews">
-        <h2>Customer Reviews</h2>
-        <p>\"Amazing product!\" - User 1</p>
-        <p>\"Best purchase ever!\" - User 2</p>
-    </div>
-
-    <footer>
-        <p>&copy; 2026 TECNO 77. All rights reserved.</p>
-    </footer>
+    <h1>Joke Generator</h1>
+    <button id="jokeButton">Get a Joke</button>
+    <p id="joke"></p>
+    <script>
+        document.getElementById('jokeButton').addEventListener('click', function() {
+            fetch('https://v2.jokeapi.dev/joke/Any')
+            .then(response => response.json())
+            .then(data => {
+                const jokeElement = document.getElementById('joke');
+                if(data.joke) {
+                    jokeElement.innerText = data.joke;
+                } else {
+                    jokeElement.innerText = `${data.setup} - ${data.delivery}`;
+                }
+            })
+            .catch(error => console.error('Error fetching joke:', error));
+        });
+    </script>
 </body>
 </html>
